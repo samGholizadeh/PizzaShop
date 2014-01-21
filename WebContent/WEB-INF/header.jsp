@@ -11,8 +11,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Pizza butik</title>
 		
-		<link rel="stylesheet" type="text/css" href="/WEB-INF/resources/css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="/WEB-INF/resources/css/bootstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap-theme.css">
+		
+		<style>
+			.jumbotron{
+				margin-top: 10px;
+			}
+		</style>
 		
 	</head>
 	  <body>
@@ -20,9 +26,8 @@
 	    <div class="container">
 	      <div class="header">
 	        <ul class="nav nav-pills pull-right">
-	          <li class="active"><a href="#">Home</a></li>
-	          <li><a href="#">About</a></li>
-	          <li><a href="#">Contact</a></li>
+	          <li><a href="#">Login</a></li>
+	          <li><a href="#">Admin</a></li>
 	        </ul>
-	        <h3 class="text-muted">Project name</h3>
+	        <h3 class="text-muted">Pizza butiken</h3>
 	      </div>
