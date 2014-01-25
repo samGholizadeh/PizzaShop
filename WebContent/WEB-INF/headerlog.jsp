@@ -34,17 +34,13 @@
           </button>
           <a class="navbar-brand" href="#">Project name</a>
         </div>
-        <div class="navbar-collapse collapse">
-          <form method="POST" action="login" class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-              <input type="text" name="username" placeholder="Username" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" name="pw" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>	
-        </div><!--/.navbar-collapse -->
+        	<div class="navbar-collapse collapse">
+        	<button class="btn btn-success"><%= session.getAttribute("username") %></button>
+	          <form method="GET" action="logout" class="navbar-form navbar-right" role="form">
+	            <button type="submit" class="btn btn-success">Logout</button>
+	          </form>	
+        	
+        	</div>
       	
     </div>
     
