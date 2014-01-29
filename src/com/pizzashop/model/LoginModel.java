@@ -7,21 +7,21 @@ import com.pizzashop.business.User;
 
 public class LoginModel {
 	
-	public static User login(String id, String pw){
+	public static User login(String username, String pw){
 		
 		ConnectionPool cp = ConnectionPool.getInstance();
 		Connection connection = cp.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		User user = null;
-		String query = "SELECT * FROM user WHERE username = ?";
+		String query = "SELECT * FROM user WHERE username = ? AND password = ?";
 		
 		try{
 			ps = connection.prepareStatement(query);
-			ps.setString(1, id);
+			ps.setString(1, username);
+			ps.setString(2, pw);
 			rs = ps.executeQuery();
 			while(rs.next()){
-				System.out.println(rs.getInt(1));
 				user = new User();
 				user.setId(rs.getInt(1));
 				user.setEmail(rs.getString(2));

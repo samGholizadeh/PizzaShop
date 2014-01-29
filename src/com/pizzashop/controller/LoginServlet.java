@@ -26,17 +26,26 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		User user = LoginModel.login(request.getParameter("username"), ("pw"));
-		session.setAttribute("username", user.getUsername());
-		session.setAttribute("userid", user.getId());
-		String url;
+		String url = null;
 		if(user == null){
-			url = "/WEB-INF/loginfail.jsp";
-		} else {
-			url = "/WEB-INF/userpage.jsp";
+			url = "/WEB-INF/login.jsp";
+		} else if(user != null && session.getAttribute("order") == null) {
+			session.setAttribute("user", user);
+			session.setAttribute("username", user.getUsername());
+			url = "/WEB-INF/index.jsp";
+		} else if(user != null && session.getAttribute("order") != null){
+			session.setAttribute("user", user);
+			session.setAttribute("username", user.getUsername());
+			url = "/WEB-INF/confirmation.jsp";
 		}
-		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
 
 }
+
+
+/*Lägg till möjlighet att ta bort och lägga till pizza på menyn
+ * Lägga till drink som admin
+ * 
+ * */

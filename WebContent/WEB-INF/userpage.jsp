@@ -1,12 +1,13 @@
+<%@ page import="com.pizzashop.business.*" %>
 <%@ include file="/WEB-INF/headerlog.jsp" %>
-
-      <div class="jumbotron">
-      </div>
+<%
+	User user = (User) session.getAttribute("user");
+	if(user.getId() == 1 || user.getId() == 2){
+%>
       
       <div class="row">
       	<div class="col-md-12">
-      	
-      	<%if(session.getAttribute("userid") == 1 || session.getAttribute("userid") == 2){ %>
+
       		<h4>Orders</h4>
       		
      		<table class="table">
@@ -17,8 +18,10 @@
 			            <td>Efternamn</td>
 			            <td>Adress</td>
 			            <td>Status</td>
+			            <td></td>
 			        </tr>
 		        </thead>
+		        
    			</table>
    			
    		<% } else { %>
