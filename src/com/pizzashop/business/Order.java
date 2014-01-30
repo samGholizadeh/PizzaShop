@@ -8,6 +8,9 @@ public class Order {
 	private String timestamp;
 	private int status;
 	private double totalPrice;
+	private String firstname;
+	private String lastname;
+	private String address;
 	//Skapade både array och lista för träningsskull. Skulle funka med bara lista
 	private String[] pizzaNames;
 	private String[] drinkNames;
@@ -28,6 +31,18 @@ public class Order {
 	
 	public void setDrinkName(int element, String drinkName){
 		drinkNames[element] = drinkName;
+	}
+	
+	public String getPizzaName(int element){
+		for(String s : pizzaNames){
+			System.out.println(s);
+		}
+		System.out.println(""+pizzaNames.length);
+		return this.pizzaNames[element];
+	}
+	
+	public String getDrinkName(int element){
+		return this.drinkNames[element];
 	}
 	
 	public int getOrderId() {
@@ -60,6 +75,7 @@ public class Order {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
 	public ArrayList<Pizza> getPizzaInOrder() {
 		return PizzaInOrder;
 	}
@@ -71,5 +87,34 @@ public class Order {
 	}
 	public void setDrinkInOrder(ArrayList<Drink> drinkInOrder) {
 		DrinkInOrder = drinkInOrder;
+	}
+
+	public String[] getPizzaNames() {
+		return pizzaNames;
+	}
+
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

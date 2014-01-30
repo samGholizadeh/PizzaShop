@@ -4,12 +4,13 @@ import java.awt.image.DataBuffer;
 import java.sql.*;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.jdbc2.optional.PreparedStatementWrapper;
 import com.pizzashop.business.Order;
 import com.pizzashop.business.Pizza;
 
 public class OrderModel {
 	
-	public static int insertOrder(int userid, double totalPrice, int pizzaId, int drinkid){
+	public static int insertOrder(int userid, double totalPrice, int pizzaId, int drinkid, String pizzaName, String drinkName){
 		
 		ConnectionPool cp = ConnectionPool.getInstance();
 		Connection connection = cp.getConnection();
@@ -27,16 +28,18 @@ public class OrderModel {
 			GeneratedKeys.next();
 			generatedPrimaryKey = GeneratedKeys.getInt(1);
 			DBUtil.closePreparedStatement(ps);
-			sql = "INSERT INTO pizza.pizza_in_order(orderid, pizzaid) VALUES(?, ?)";
+			sql = "INSERT INTO pizza.pizza_in_order(orderid, pizzaid, pizzaName) VALUES(?, ?, ?)";
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, generatedPrimaryKey);
 			ps.setInt(2, pizzaId);
+			ps.setString(3, pizzaName);
 			ps.executeUpdate();
 			DBUtil.closePreparedStatement(ps);
-			sql = "INSERT INTO pizza.drink_in_order(orderid, drinkid) VALUES(?, ?)";
+			sql = "INSERT INTO pizza.drink_in_order(orderid, drinkid, drinkName) VALUES(?, ?, ?)";
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, generatedPrimaryKey);
 			ps.setInt(2, drinkid);
+			ps.setString(3, drinkName);
 			ps.executeUpdate();
 		} catch(SQLException sqle){
 			sqle.printStackTrace();
@@ -54,13 +57,13 @@ public class OrderModel {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ResultSet orderSpec = null;
-		String sql = "SELECT * FROM order";
+		String sql = "SELECT pizza.order.*, pizza.user.* FROM pizza.order LEFT JOIN pizza.user ON pizza.order.userid = pizza.user.userid";
 		Order order = null;
 		ArrayList<Order> OrderList = new ArrayList<Order>();
 		//Skulle kunna använda INNER join men det skapar redundency i ResultSet och därför kör jag två queries till och lägger till det resultset i Order
 		//objektet.
 		try{
-			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps = connection.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()){
 				order = new Order();
@@ -69,11 +72,15 @@ public class OrderModel {
 				order.setTimestamp(rs.getString(3));
 				order.setStatus(rs.getInt(4));
 				order.setTotalPrice(rs.getDouble("price"));
-				sql = "SELECT * FROM pizza_in_order WERE orderid = ?";
+				order.setFirstname(rs.getString("firstname"));
+				order.setLastname(rs.getString("lastname"));
+				order.setAddress(rs.getString("adress"));
+				sql = "SELECT * FROM pizza_in_order WHERE orderid = ?";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
 				int itemCount = 0;
+				
 				if(orderSpec.last()){
 					itemCount = orderSpec.getRow();
 					orderSpec.beforeFirst();
@@ -87,6 +94,7 @@ public class OrderModel {
 				DBUtil.closeResultSet(orderSpec);
 				sql = "SELECT * FROM drink_in_order WHERE orderid = ?";
 				ps = connection.prepareStatement(sql);
+				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
 				if(orderSpec.last()){
 					itemCount = orderSpec.getRow();
@@ -114,7 +122,7 @@ public class OrderModel {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ResultSet orderSpec = null;
-		String sql = "SELECT * FROM order WHERE userid = ?";
+		String sql = "SELECT * FROM pizza.order WHERE pizza.order.userid = ?";
 		Order order = null;
 		ArrayList<Order> OrderList = new ArrayList<Order>();
 		//Skulle kunna använda INNER join men det skapar redundency i ResultSet och därför kör jag två queries till och lägger till det resultset i Order
@@ -130,7 +138,7 @@ public class OrderModel {
 				order.setTimestamp(rs.getString(3));
 				order.setStatus(rs.getInt(4));
 				order.setTotalPrice(rs.getDouble("price"));
-				sql = "SELECT * FROM pizza_in_order WERE orderid = ?";
+				sql = "SELECT * FROM pizza.pizza_in_order WHERE pizza.pizza_in_order.orderid = ?";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
@@ -148,6 +156,7 @@ public class OrderModel {
 				DBUtil.closeResultSet(orderSpec);
 				sql = "SELECT * FROM drink_in_order WHERE orderid = ?";
 				ps = connection.prepareStatement(sql);
+				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
 				if(orderSpec.last()){
 					itemCount = orderSpec.getRow();
@@ -167,5 +176,40 @@ public class OrderModel {
 			cp.freeConnection(connection);
 		}
 		return OrderList;
+	}
+	
+	public static void removeOrder(int orderId){
+		ConnectionPool cp = ConnectionPool.getInstance();
+		Connection connection = cp.getConnection();
+		PreparedStatement ps = null;
+		String sql = "DELETE FROM pizza.order WHERE pizza.order.orderid = ?";
+		try{
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, orderId);
+			ps.executeUpdate();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			cp.freeConnection(connection);
+		}
+	}
+	
+	public static void changeOrderStatus(int orderId){
+		ConnectionPool cp = ConnectionPool.getInstance();
+		Connection connection = cp.getConnection();
+		PreparedStatement ps = null;
+		String sql = "UPDATE pizza.order SET pizza.order.status = 1 WHERE pizza.order.orderid = ?";
+		
+		try{
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, orderId);
+			ps.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		} finally{
+			DBUtil.closePreparedStatement(ps);
+			cp.freeConnection(connection);
+		}
 	}
 }

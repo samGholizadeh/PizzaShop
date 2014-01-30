@@ -6,7 +6,7 @@
 
 %>
       <div id="orderform" class="row">
-      	<div class="col-md-6 col-md-offset-2">
+      	<div class="col-md-6 col-md-offset-1">
       		<form method="POST" action="order">
       			<table class="table">
       				<thead>

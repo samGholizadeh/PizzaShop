@@ -26,6 +26,17 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
+		String action = request.getParameter("action");
+		if(action != null){
+			switch(action.toLowerCase())
+			{
+				case "removeorder":
+					System.out.println("asdad");
+					int orderId = Integer.parseInt(request.getParameter("orderId"));
+					OrderModel.removeOrder(orderId);
+					break;
+			}
+		}
 		String url;
 		if(session.getAttribute("PizzaList") == null){
 			ArrayList<Pizza> PizzaList = PizzaModel.getPizzas();
@@ -49,8 +60,28 @@ public class IndexServlet extends HttpServlet {
 		} else {
 			url = "/WEB-INF/index.jsp";
 		}
-		RequestDispatcher Dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/index.jsp");
+		RequestDispatcher Dispatcher = getServletContext().getRequestDispatcher(url);
 		Dispatcher.forward(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		String action = request.getParameter("action");
+		int orderId = 0;
+		if(action != null){
+			switch(action.toLowerCase())
+			{
+				case "removeorder":
+					orderId = Integer.parseInt(request.getParameter("orderId"));
+					OrderModel.removeOrder(orderId);
+					break;
+				case "changeorderstatus":
+					System.out.println("changeOrderStatus");
+					orderId = Integer.parseInt(request.getParameter("orderId"));
+					OrderModel.changeOrderStatus(orderId);
+					break;
+			}
+		}
 	}
 
 }

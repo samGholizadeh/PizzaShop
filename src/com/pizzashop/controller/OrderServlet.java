@@ -18,7 +18,7 @@ import com.pizzashop.business.*;
 /**
  * Servlet implementation class OrderServlet
  */
-@WebServlet({ "/OrderServlet", "/order" })
+@WebServlet({ "/OrderServlet", "/order", "/removeOrder" })
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

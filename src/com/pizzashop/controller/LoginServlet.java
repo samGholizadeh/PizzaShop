@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		User user = LoginModel.login(request.getParameter("username"), ("pw"));
+		User user = LoginModel.login(request.getParameter("username"), request.getParameter("pw"));
 		String url = null;
 		if(user == null){
 			url = "/WEB-INF/login.jsp";

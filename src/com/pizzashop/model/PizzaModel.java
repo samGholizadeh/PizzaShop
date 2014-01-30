@@ -17,7 +17,7 @@ public class PizzaModel {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ArrayList<Pizza> PizzaList = new ArrayList<Pizza>();
-		String query = "SELECT * FROM pizza";
+		String query = "SELECT * FROM pizzanames";
 		
 		try{
 			ps = connection.prepareStatement(query);

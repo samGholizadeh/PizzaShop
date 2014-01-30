@@ -45,23 +45,19 @@
 	      </form>
 	      <a href="register"><b>Registrera</b></a>
         </ul>
-        <h3>Pizza butiken</h3>
+        <a href="../PizzaShop/"><b><h3>Pizza butiken</h3></b></a>
       </div>
       <% } else { %>
           <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-        	<div class="navbar-collapse collapse">
-        	
-        	<form method="GET" action="../PizzaShop/">
-        		<input type="hidden" name="userPage" value="true">
-        		<button class="btn btn-success"><%= session.getAttribute("username") %></button>
-        	</form>
-	          <form method="GET" action="logout" class="navbar-form navbar-right" role="form">
-	            <button type="submit" class="btn btn-success">Logout</button>
-	          </form>
-        	</div>
-        </ul>
-        <h3>Pizza butiken</h3>
+		    <div class="btn-group navbar-form navbar-right pull-right">
+		      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><b><%= session.getAttribute("username") %></b> <span class="caret"></span></button>
+			      <ul class="dropdown-menu" role="menu">
+			        <li><a href="../PizzaShop/?userPage=true">User page</a></li>
+			        <li class="divider"></li>
+			        <li><a href="logout">Logout</a></li>
+			      </ul>
+		    </div>
+        	 <a href="../PizzaShop/"><b><h3>Pizza butiken</h3></b></a>
       </div>
       <% } %>
