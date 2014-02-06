@@ -2,8 +2,7 @@ package com.pizzashop.business;
 
 import java.util.*;
 
-public class Order {
-	private int orderId;
+public class Order extends IDClass {
 	private int userId;
 	private String timestamp;
 	private int status;
@@ -43,12 +42,6 @@ public class Order {
 		return this.drinkNames[element];
 	}
 	
-	public int getOrderId() {
-		return orderId;
-	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
 	public int getUserId() {
 		return userId;
 	}

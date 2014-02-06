@@ -74,7 +74,7 @@ public class OrderModel {
 			rs = ps.executeQuery();
 			while(rs.next()){
 				order = new Order();
-				order.setOrderId(rs.getInt(1));
+				order.setId(rs.getInt(1));
 				order.setUserId(rs.getInt(2));
 				order.setTimestamp(rs.getString(3));
 				order.setStatus(rs.getInt(4));
@@ -87,7 +87,6 @@ public class OrderModel {
 				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
 				int itemCount = 0;
-				
 				if(orderSpec.last()){
 					itemCount = orderSpec.getRow();
 					orderSpec.beforeFirst();
@@ -141,7 +140,7 @@ public class OrderModel {
 			rs = ps.executeQuery();
 			while(rs.next()){
 				order = new Order();
-				order.setOrderId(rs.getInt(1));
+				order.setId(rs.getInt(1));
 				order.setUserId(rs.getInt(2));
 				order.setTimestamp(rs.getString(3));
 				order.setStatus(rs.getInt(4));

@@ -1,16 +1,9 @@
 package com.pizzashop.business;
 
-public class Pizza {
-	private int id;
+public class Pizza extends IDClass {
 	private double price;
 	private String name;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
