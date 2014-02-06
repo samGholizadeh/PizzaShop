@@ -5,12 +5,13 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import com.mysql.jdbc.jdbc2.optional.PreparedStatementWrapper;
+import com.pizzashop.business.Drink;
 import com.pizzashop.business.Order;
 import com.pizzashop.business.Pizza;
 
 public class OrderModel {
 	
-	public static int insertOrder(int userid, double totalPrice, int pizzaId, int drinkid, String pizzaName, String drinkName){
+	public static int insertOrder(int userid, double totalPrice, ArrayList<Pizza> PizzaInOrder, ArrayList<Drink> DrinkInOrder, String[] pizzaNames, String[] drinkNames){
 		
 		ConnectionPool cp = ConnectionPool.getInstance();
 		Connection connection = cp.getConnection();
@@ -28,19 +29,25 @@ public class OrderModel {
 			GeneratedKeys.next();
 			generatedPrimaryKey = GeneratedKeys.getInt(1);
 			DBUtil.closePreparedStatement(ps);
-			sql = "INSERT INTO pizza.pizza_in_order(orderid, pizzaid, pizzaName) VALUES(?, ?, ?)";
-			ps = connection.prepareStatement(sql);
-			ps.setInt(1, generatedPrimaryKey);
-			ps.setInt(2, pizzaId);
-			ps.setString(3, pizzaName);
-			ps.executeUpdate();
-			DBUtil.closePreparedStatement(ps);
-			sql = "INSERT INTO pizza.drink_in_order(orderid, drinkid, drinkName) VALUES(?, ?, ?)";
-			ps = connection.prepareStatement(sql);
-			ps.setInt(1, generatedPrimaryKey);
-			ps.setInt(2, drinkid);
-			ps.setString(3, drinkName);
-			ps.executeUpdate();
+			for(int i = 0;  i < pizzaNames.length; i++){
+				sql = "INSERT INTO pizza.pizza_in_order(orderid, pizzaid, pizzaName) VALUES(?, ?, ?)";
+				ps = connection.prepareStatement(sql);
+				ps.setInt(1, generatedPrimaryKey);
+				System.out.println("Pizzaid="+PizzaInOrder.get(i).getId());
+				ps.setInt(2, PizzaInOrder.get(i).getId());
+				ps.setString(3, PizzaInOrder.get(i).getName());
+				ps.executeUpdate();
+				DBUtil.closePreparedStatement(ps);
+			}
+			for(int i = 0; i < drinkNames.length; i++){
+				sql = "INSERT INTO pizza.drink_in_order(orderid, drinkid, drinkName) VALUES(?, ?, ?)";
+				ps = connection.prepareStatement(sql);
+				ps.setInt(1, generatedPrimaryKey);
+				System.out.println("Drinkid="+DrinkInOrder.get(i).getId());
+				ps.setInt(2, DrinkInOrder.get(i).getId());
+				ps.setString(3, DrinkInOrder.get(i).getName());
+				ps.executeUpdate();
+			}
 		} catch(SQLException sqle){
 			sqle.printStackTrace();
 		} finally {
@@ -85,6 +92,7 @@ public class OrderModel {
 					itemCount = orderSpec.getRow();
 					orderSpec.beforeFirst();
 				}
+				System.out.println("Pizza or Drink in order"+itemCount);
 				order.initializePizzaNames(itemCount);
 				for(int i = 0; orderSpec.next(); i++){
 					order.setPizzaName(i, orderSpec.getString("pizzaName"));

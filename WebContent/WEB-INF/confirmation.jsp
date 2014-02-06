@@ -13,11 +13,27 @@
 <table class="table">
 	<tr>
 		<td>Pizza</td>
-		<td><%= order.getPizzaInOrder().get(0).getName() %></td>
+		<td>
+			<select>
+			<% for(int i = 0; i < order.getPizzaNames().length; i++){ %>
+				<option <% if(i == 0){ %>selected="selected"<% } %>>
+					<%= order.getPizzaName(i)%>
+				</option> 
+			<% } %>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>Drink</td>
-		<td><%= order.getDrinkInOrder().get(0).getName() %>
+		<td>
+			<select selected="selected">
+			<% for(int i = 0; i < order.getDrinkNames().length; i++){ %>
+				<option <% if(i == 0){ %>selected="selected"<% } %>>
+					<%= order.getDrinkName(i)%>
+				</option>
+			<% } %>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>Total Price</td>

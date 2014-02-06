@@ -34,14 +34,12 @@ public class Order {
 	}
 	
 	public String getPizzaName(int element){
-		for(String s : pizzaNames){
-			System.out.println(s);
-		}
-		System.out.println(""+pizzaNames.length);
+		System.out.println("pizzaName array length"+pizzaNames.length);
 		return this.pizzaNames[element];
 	}
 	
 	public String getDrinkName(int element){
+		System.out.println("drinkName array length"+pizzaNames.length);
 		return this.drinkNames[element];
 	}
 	
@@ -89,10 +87,6 @@ public class Order {
 		DrinkInOrder = drinkInOrder;
 	}
 
-	public String[] getPizzaNames() {
-		return pizzaNames;
-	}
-
 
 	public String getFirstname() {
 		return firstname;
@@ -116,5 +110,21 @@ public class Order {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	public String[] getPizzaNames() {
+		return pizzaNames;
+	}
+
+	public String[] getDrinkNames() {
+		return drinkNames;
+	}
+
+	public void setDrinkNames(String[] drinkNames) {
+		this.drinkNames = drinkNames;
+	}
+
+	public void setPizzaNames(String[] pizzaNames) {
+		this.pizzaNames = pizzaNames;
 	}
 }

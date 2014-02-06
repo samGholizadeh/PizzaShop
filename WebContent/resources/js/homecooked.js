@@ -1,4 +1,6 @@
 $(document).ready(function(e) {
+	var drinkAmount = 1;
+	var pizzaAmount = 1;
 	
 	$(".remove").click(function(){
 		var orderId = $(this).closest("tr").attr("id");
@@ -32,4 +34,5 @@ $(document).ready(function(e) {
 			}
 		});
 	});
+	
 });

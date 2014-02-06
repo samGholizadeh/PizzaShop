@@ -33,8 +33,12 @@
 		        		<td><%= orderList.get(i).getFirstname() %></td>
 		        		<td><%= orderList.get(i).getLastname() %></td>
 		        		<td><%= orderList.get(i).getAddress() %></td>
-		        		<td><%= orderList.get(i).getPizzaName(0) %></td>
+		        		
+		        		<td>
+		        			<%= orderList.get(i).getPizzaName(0) %>
+		        		</td>
 		        		<td><%= orderList.get(i).getDrinkName(0) %></td>
+		        		
 		        		<td><% if(orderList.get(i).getStatus() == 0){%><button class="btn-success btn-xs delivered">Lev.</button><%} else {%><b>Lev.</b><%} %></td>
 		        		<td>
 		        			<button class="btn-danger btn-xs remove">Ta bort</button>
