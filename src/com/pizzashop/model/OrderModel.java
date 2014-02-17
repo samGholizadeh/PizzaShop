@@ -198,4 +198,30 @@ public class OrderModel {
 			cp.freeConnection(connection);
 		}
 	}
+	
+	public static int searchMethod(String pizzaName, int userId){
+		ConnectionPool cp = ConnectionPool.getInstance();
+		Connection connection = cp.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(pizza.pizza_in_order.pizzaName) FROM pizza.pizza_in_order RIGHT JOIN pizza.order ON pizza.pizza_in_order.orderid = pizza.order.orderid WHERE pizza.order.userid = ? AND pizza.pizza_in_order.pizzaName = ?";
+		int holder = 0;
+		try{
+			Statement st = connection.createStatement();
+			st.execute("USE pizza");
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, userId);
+			ps.setString(2, pizzaName);
+			rs = ps.executeQuery();
+			rs.next();
+			holder = rs.getInt(1);
+		} catch(SQLException e){
+			e.printStackTrace();
+		} finally{
+			DBUtil.closePreparedStatement(ps);
+			DBUtil.closeResultSet(rs);
+		}
+		
+		return holder;
+	}	
 }

@@ -115,5 +115,23 @@
 		        </table>
    			</div>
    		</div>
+   		<div class="row">
+   			<div class="col-md-6">
+   				<form method="get" action="?action=search">
+   					<input type="hidden" name="userPage" value="true">
+   					<input type="hidden" name="action" value="search">
+   					<input type="text" name="searchString" placeholder="Pizza name">
+   					<input type="hidden" name="userId" value="<%= user.getId()%>">
+   					<input type="submit" value="Search">
+   				</form>
+   			</div>
+   			<div class="col-md-6">
+   				<% 
+   				SearchClass sc = (SearchClass) session.getAttribute("SearchClass");
+   				if(SearchClass.containsResult){ %>
+   					<h3><b>Number of <%= sc.searchString%> ordered: <%= sc.count%></b></h3>
+   				<% SearchClass.containsResult = false; } %>
+   			</div>
+   		</div>
    	<% } %>
 <%@ include file="/WEB-INF/footer.jsp" %>

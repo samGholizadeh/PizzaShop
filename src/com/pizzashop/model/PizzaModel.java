@@ -17,7 +17,7 @@ public class PizzaModel {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ArrayList<Pizza> PizzaList = new ArrayList<Pizza>();
-		String query = "SELECT * FROM pizzanames";
+		String query = "SELECT * FROM pizza";
 		
 		try{
 			ps = connection.prepareStatement(query);
@@ -40,6 +40,7 @@ public class PizzaModel {
 		return PizzaList;
 	}
 	
+	//Vi ska vidareutveckla applikationen så att admin kan lägga in pizza.
 	public static void insertPizza(double price, String name){
 		
 		ConnectionPool cp = ConnectionPool.getInstance();

@@ -34,6 +34,13 @@ public class IndexServlet extends HttpServlet {
 					int orderId = Integer.parseInt(request.getParameter("orderId"));
 					OrderModel.removeOrder(orderId);
 					break;
+				case "search":
+					SearchClass sc = new SearchClass();
+					sc.count = OrderModel.searchMethod(request.getParameter("searchString"), Integer.parseInt(request.getParameter("userId")));
+					sc.searchString = request.getParameter("searchString");
+					SearchClass.containsResult = true;
+					session.setAttribute("SearchClass", sc);
+					break;
 			}
 		}
 		String url;
