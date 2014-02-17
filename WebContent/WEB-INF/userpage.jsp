@@ -28,16 +28,26 @@
 			        </tr>
 		        </thead>
 		        <% for(int i = 0; i < orderList.size(); i++){ %>
-		        	<tr id="<%= orderList.get(i).getOrderId() %>" <% if(orderList.get(i).getStatus() == 0){ %>class="warning"<% } else {%>class="success"<% } %>>
-		        		<td><%= orderList.get(i).getOrderId() %></td>
+		        	<tr id="<%= orderList.get(i).getId() %>" <% if(orderList.get(i).getStatus() == 0){ %>class="warning"<% } else {%>class="success"<% } %>>
+		        		<td><%= orderList.get(i).getId() %></td>
 		        		<td><%= orderList.get(i).getFirstname() %></td>
 		        		<td><%= orderList.get(i).getLastname() %></td>
 		        		<td><%= orderList.get(i).getAddress() %></td>
 		        		
 		        		<td>
-		        			<%= orderList.get(i).getPizzaName(0) %>
+		        			<select>
+		        			<% for(int k = 0; k < orderList.get(i).getPizzaInOrder().size(); k++){ %>
+		        				<option><%= orderList.get(i).getPizzaInOrder().get(k).getName() %></option>
+		        			<% } %>
+		        			</select>
 		        		</td>
-		        		<td><%= orderList.get(i).getDrinkName(0) %></td>
+		        		<td>
+		        			<select>
+			        			<% for(int k = 0; k < orderList.get(i).getDrinkInOrder().size(); k++){ %>
+			        				<option><%= orderList.get(i).getDrinkInOrder().get(k).getName() %></option>
+			        			<% } %>
+		        			</select>
+		        		</td>
 		        		
 		        		<td><% if(orderList.get(i).getStatus() == 0){%><button class="btn-success btn-xs delivered">Lev.</button><%} else {%><b>Lev.</b><%} %></td>
 		        		<td>
@@ -51,6 +61,7 @@
    	<% } else { %>
    		<div class="row">
    			<div class="col-md-6">
+   				<h4><b>Dina uppgifter</b></h4>
    				<table class="table">
    					<tr>
    						<td><b>Firstname</b></td>
@@ -75,18 +86,34 @@
    				</table>
    			</div>
    			<div class="col-md-6">
+   			<h4><b>Orders</b></h4>
    			<table class="table">
+   				<thead>
+   					<tr>
+   						<td>Pizza(s)</td>
+   						<td>Drink(s)</td>
+   					</tr>
+   				</thead>
    				<% for(int i = 0; i < orderList.size(); i++){ %>
 		        	<tr <% if(orderList.get(i).getStatus() == 0){ %>class="warning"<% } else {%>class="success"<% } %>>
-		        		
-		        		<td><%= orderList.get(i).getPizzaName(0) %></td>
-		        		<td><%= orderList.get(i).getDrinkName(0) %></td>
+		        		<td>
+		        			<select>
+		        			<% for(int k = 0; k < orderList.get(i).getPizzaInOrder().size(); k++){ %>
+		        				<option><%= orderList.get(i).getPizzaInOrder().get(k).getName() %></option>
+		        			<% } %>
+		        			</select>
+		        		</td>
+		        		<td>
+		        			<select>
+			        			<% for(int k = 0; k < orderList.get(i).getDrinkInOrder().size(); k++){ %>
+			        				<option><%= orderList.get(i).getDrinkInOrder().get(k).getName() %></option>
+			        			<% } %>
+		        			</select>
+		        		</td>
 		        	</tr>
 		        <% } %>
 		        </table>
    			</div>
    		</div>
    	<% } %>
-      
-      
 <%@ include file="/WEB-INF/footer.jsp" %>

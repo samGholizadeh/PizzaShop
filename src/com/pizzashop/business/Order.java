@@ -11,36 +11,8 @@ public class Order extends IDClass {
 	private String lastname;
 	private String address;
 	//Skapade både array och lista för träningsskull. Skulle funka med bara lista
-	private String[] pizzaNames;
-	private String[] drinkNames;
 	private ArrayList<Pizza> PizzaInOrder = new ArrayList<Pizza>();
 	private ArrayList<Drink> DrinkInOrder = new ArrayList<Drink>();
-	
-	public void initializePizzaNames(int elements){
-		pizzaNames = new String[elements];
-	}
-	
-	public void initializeDrinkNames(int elements){
-		drinkNames = new String[elements];
-	}
-	
-	public void setPizzaName(int element, String pizzaName){
-		pizzaNames[element] = pizzaName;
-	}
-	
-	public void setDrinkName(int element, String drinkName){
-		drinkNames[element] = drinkName;
-	}
-	
-	public String getPizzaName(int element){
-		System.out.println("pizzaName array length"+pizzaNames.length);
-		return this.pizzaNames[element];
-	}
-	
-	public String getDrinkName(int element){
-		System.out.println("drinkName array length"+pizzaNames.length);
-		return this.drinkNames[element];
-	}
 	
 	public int getUserId() {
 		return userId;
@@ -68,13 +40,13 @@ public class Order extends IDClass {
 	}
 	
 	public ArrayList<Pizza> getPizzaInOrder() {
-		return PizzaInOrder;
+		return this.PizzaInOrder;
 	}
 	public void setPizzaInOrder(ArrayList<Pizza> pizzaInOrder) {
 		PizzaInOrder = pizzaInOrder;
 	}
 	public ArrayList<Drink> getDrinkInOrder() {
-		return DrinkInOrder;
+		return this.DrinkInOrder;
 	}
 	public void setDrinkInOrder(ArrayList<Drink> drinkInOrder) {
 		DrinkInOrder = drinkInOrder;
@@ -103,21 +75,5 @@ public class Order extends IDClass {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	
-	public String[] getPizzaNames() {
-		return pizzaNames;
-	}
-
-	public String[] getDrinkNames() {
-		return drinkNames;
-	}
-
-	public void setDrinkNames(String[] drinkNames) {
-		this.drinkNames = drinkNames;
-	}
-
-	public void setPizzaNames(String[] pizzaNames) {
-		this.pizzaNames = pizzaNames;
 	}
 }

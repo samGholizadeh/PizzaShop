@@ -57,9 +57,8 @@
 						<tr id="drinkTemplate">
 							<td>
 		      					<select name="drinkid1">
-		      						<% for(Iterator<Drink> d = DrinkList.iterator(); d.hasNext();){
-		      							Drink drink = d.next(); %>
-		      							<option value="<%= drink.getId() %>"><%= drink.getName() %>&nbsp;&nbsp;<%= drink.getPrice() %>kr</option>
+		      						<% for(int i = 0; i < DrinkList.size(); i++){%>
+		      							<option value="<%= DrinkList.get(i).getId() %>"><%= DrinkList.get(i).getName() %>&nbsp;&nbsp;<%= DrinkList.get(i).getPrice() %>kr</option>
 		      						<% } %>
 		      					</select>
 		      				</td>

@@ -15,9 +15,9 @@
 		<td>Pizza</td>
 		<td>
 			<select>
-			<% for(int i = 0; i < order.getPizzaNames().length; i++){ %>
+			<% for(int i = 0; i < order.getPizzaInOrder().size(); i++){ %>
 				<option <% if(i == 0){ %>selected="selected"<% } %>>
-					<%= order.getPizzaName(i)%>
+					<%= order.getPizzaInOrder().get(i).getName()%>
 				</option> 
 			<% } %>
 			</select>
@@ -27,9 +27,9 @@
 		<td>Drink</td>
 		<td>
 			<select selected="selected">
-			<% for(int i = 0; i < order.getDrinkNames().length; i++){ %>
+			<% for(int i = 0; i < order.getDrinkInOrder().size(); i++){ %>
 				<option <% if(i == 0){ %>selected="selected"<% } %>>
-					<%= order.getDrinkName(i)%>
+					<%= order.getDrinkInOrder().get(i).getName()%>
 				</option>
 			<% } %>
 			</select>

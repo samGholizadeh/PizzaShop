@@ -1,17 +1,15 @@
 package com.pizzashop.model;
 
-import java.awt.image.DataBuffer;
 import java.sql.*;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.jdbc2.optional.PreparedStatementWrapper;
 import com.pizzashop.business.Drink;
 import com.pizzashop.business.Order;
 import com.pizzashop.business.Pizza;
 
 public class OrderModel {
 	
-	public static int insertOrder(int userid, double totalPrice, ArrayList<Pizza> PizzaInOrder, ArrayList<Drink> DrinkInOrder, String[] pizzaNames, String[] drinkNames){
+	public static int insertOrder(int userid, double totalPrice, ArrayList<Pizza> PizzaInOrder, ArrayList<Drink> DrinkInOrder){
 		
 		ConnectionPool cp = ConnectionPool.getInstance();
 		Connection connection = cp.getConnection();
@@ -29,21 +27,19 @@ public class OrderModel {
 			GeneratedKeys.next();
 			generatedPrimaryKey = GeneratedKeys.getInt(1);
 			DBUtil.closePreparedStatement(ps);
-			for(int i = 0;  i < pizzaNames.length; i++){
+			for(int i = 0;  i < PizzaInOrder.size(); i++){
 				sql = "INSERT INTO pizza.pizza_in_order(orderid, pizzaid, pizzaName) VALUES(?, ?, ?)";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, generatedPrimaryKey);
-				System.out.println("Pizzaid="+PizzaInOrder.get(i).getId());
 				ps.setInt(2, PizzaInOrder.get(i).getId());
 				ps.setString(3, PizzaInOrder.get(i).getName());
 				ps.executeUpdate();
 				DBUtil.closePreparedStatement(ps);
 			}
-			for(int i = 0; i < drinkNames.length; i++){
+			for(int i = 0; i < DrinkInOrder.size(); i++){
 				sql = "INSERT INTO pizza.drink_in_order(orderid, drinkid, drinkName) VALUES(?, ?, ?)";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, generatedPrimaryKey);
-				System.out.println("Drinkid="+DrinkInOrder.get(i).getId());
 				ps.setInt(2, DrinkInOrder.get(i).getId());
 				ps.setString(3, DrinkInOrder.get(i).getName());
 				ps.executeUpdate();
@@ -86,30 +82,21 @@ public class OrderModel {
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
-				int itemCount = 0;
-				if(orderSpec.last()){
-					itemCount = orderSpec.getRow();
-					orderSpec.beforeFirst();
-				}
-				System.out.println("Pizza or Drink in order"+itemCount);
-				order.initializePizzaNames(itemCount);
 				for(int i = 0; orderSpec.next(); i++){
-					order.setPizzaName(i, orderSpec.getString("pizzaName"));
+					Pizza Pizza = new Pizza();
+					Pizza.setName(orderSpec.getString("pizzaName"));
+					order.getPizzaInOrder().add(Pizza);
 				}
-				itemCount = 0;
 				DBUtil.closePreparedStatement(ps);
 				DBUtil.closeResultSet(orderSpec);
 				sql = "SELECT * FROM drink_in_order WHERE orderid = ?";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
-				if(orderSpec.last()){
-					itemCount = orderSpec.getRow();
-					orderSpec.beforeFirst();
-				}
-				order.initializeDrinkNames(itemCount);
-				for(int i = 0; orderSpec.next(); i++){
-					order.setDrinkName(i, orderSpec.getString("drinkName"));
+				while(orderSpec.next()){
+					Drink Drink = new Drink();
+					Drink.setName(orderSpec.getString("drinkName"));
+					order.getDrinkInOrder().add(Drink);
 				}
 				OrderList.add(order);
 			}
@@ -149,29 +136,21 @@ public class OrderModel {
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
-				int itemCount = 0;
-				if(orderSpec.last()){
-					itemCount = orderSpec.getRow();
-					orderSpec.beforeFirst();
+				while(orderSpec.next()){
+					Pizza Pizza = new Pizza();
+					Pizza.setName(orderSpec.getString("pizzaName"));
+					order.getPizzaInOrder().add(Pizza);
 				}
-				order.initializePizzaNames(itemCount);
-				for(int i = 0; orderSpec.next(); i++){
-					order.setPizzaName(i, orderSpec.getString("pizzaName"));
-				}
-				itemCount = 0;
 				DBUtil.closePreparedStatement(ps);
 				DBUtil.closeResultSet(orderSpec);
 				sql = "SELECT * FROM drink_in_order WHERE orderid = ?";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, rs.getInt(1));
 				orderSpec = ps.executeQuery();
-				if(orderSpec.last()){
-					itemCount = orderSpec.getRow();
-					orderSpec.beforeFirst();
-				}
-				order.initializeDrinkNames(itemCount);
-				for(int i = 0; orderSpec.next(); i++){
-					order.setDrinkName(i, orderSpec.getString("drinkName"));
+				while(orderSpec.next()){
+					Drink Drink = new Drink();
+					Drink.setName(orderSpec.getString("drinkName"));
+					order.getDrinkInOrder().add(Drink);
 				}
 				OrderList.add(order);
 			}

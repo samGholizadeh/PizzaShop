@@ -31,7 +31,6 @@ public class IndexServlet extends HttpServlet {
 			switch(action.toLowerCase())
 			{
 				case "removeorder":
-					System.out.println("asdad");
 					int orderId = Integer.parseInt(request.getParameter("orderId"));
 					OrderModel.removeOrder(orderId);
 					break;
@@ -76,7 +75,6 @@ public class IndexServlet extends HttpServlet {
 					OrderModel.removeOrder(orderId);
 					break;
 				case "changeorderstatus":
-					System.out.println("changeOrderStatus");
 					orderId = Integer.parseInt(request.getParameter("orderId"));
 					OrderModel.changeOrderStatus(orderId);
 					break;

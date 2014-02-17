@@ -28,7 +28,7 @@ public class ConfirmOrderServlet extends HttpServlet {
 		Order order = (Order) session.getAttribute("order");
 		User user = (User) session.getAttribute("user");
 		order.setUserId(user.getId());
-		int insertSuccess = OrderModel.insertOrder(order.getUserId(), order.getTotalPrice(), order.getPizzaInOrder(), order.getDrinkInOrder(), order.getPizzaNames(), order.getDrinkNames());
+		int insertSuccess = OrderModel.insertOrder(order.getUserId(), order.getTotalPrice(), order.getPizzaInOrder(), order.getDrinkInOrder());
 		String url = "";
 		if(insertSuccess >= 0){
 			url = "/WEB-INF/ordersuccess.jsp";
