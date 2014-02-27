@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pizzashop.business.User;
-import com.pizzashop.business.Util;
 import com.pizzashop.model.UserModel;
 
 /**

@@ -7,7 +7,7 @@
     </div>
     <script src="resources/js/jquery-2.1.0.js"></script>
     <script src="resources/js/jquery-2.1.0.min.map"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/js/bootstrap.js"></script>
     <script src="resources/js/homecooked.js"></script>
     <script>
 	$("#pizzaAmount").on("change", function(){

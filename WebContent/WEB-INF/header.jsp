@@ -14,25 +14,24 @@
 		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap-theme.css">
 		<link rel="stylesheet" type="text/css" href="resources/css/homecooked.css">
+		<link rel="stylesheet" type="text/css" href="resources/css/narrow-jumbotrn.css">
 		
 		<style>
 			.container{
 				margin-top: 10px;
+				width: 860px;
 			}
 			.header{
 				margin-bottom: 25px;
 			}
-			
-			
 		</style>
 		
 	</head>
  <body>
+ 	<div class="container">
 	<% if(session.getAttribute("user") == null){ %>
-    <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-	      <form method="POST" action="login" class="form-inline" role="form">
+	      <form id="navbarform" class="navbar-form navbar-right" method="POST" action="login" class="form-inline" role="form">
 	        <div class="form-group">
 	          <label class="sr-only" for="exampleInputEmail2">Email address</label>
 	          <input type="text" name="username" class="form-control" id="exampleInputEmail2" placeholder="Username">
@@ -42,13 +41,11 @@
 	          <input type="password" name="pw" class="form-control" id="exampleInputPassword2" placeholder="Password">
 	        </div>
 	        <button type="submit" class="btn btn-default">Sign in</button>
+	        
 	      </form>
-	      <a href="register"><b>Registrera</b></a>
-        </ul>
-        <a href="../PizzaShop/"><b><h3>Pizza butiken</h3></b></a>
+        <a href="../PizzaShop/"><img style="height: 80px; width: 120px;" src="resources/img/logo.png"></a>
       </div>
       <% } else { %>
-          <div class="container">
       <div class="header">
 		    <div class="btn-group navbar-form navbar-right pull-right">
 		      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><b><%= session.getAttribute("username") %></b> <span class="caret"></span></button>
@@ -58,6 +55,6 @@
 			        <li><a href="logout">Logout</a></li>
 			      </ul>
 		    </div>
-        	 <a href="../PizzaShop/"><b><h3>Pizza butiken</h3></b></a>
+        	 <a href="../PizzaShop/"><img style="height: 80px; width: 120px;" src="resources/img/logo.png"></a>
       </div>
       <% } %>

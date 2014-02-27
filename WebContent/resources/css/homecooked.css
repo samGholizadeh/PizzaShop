@@ -1,3 +1,20 @@
 @CHARSET "ISO-8859-1";
 
-#orderform { margin-top: 60px; }
+#orderform { }
+
+#navbarform {
+	margin-top: 20px;
+}
+
+.carousel-inner img {
+	width: 860px;
+	max-height: 400px;
+}
+
+#carousel-example-generic{
+	margin-bottom: 20px;
+}
+
+.bordertest{
+	border: solid black 1px;
+}

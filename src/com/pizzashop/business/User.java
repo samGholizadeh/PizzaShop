@@ -1,7 +1,6 @@
 package com.pizzashop.business;
 
-public class User {
-	private int id;
+public class User extends IDClass {
 	private String email;
 	private String username;
 	private String password;
@@ -9,13 +8,7 @@ public class User {
 	private String lastname;
 	private String adress;
 	private int phonenumber;
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getEmail() {
 		return email;
 	}
