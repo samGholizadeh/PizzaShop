@@ -10,6 +10,7 @@
     <script src="resources/js/bootstrap.js"></script>
     <script src="resources/js/homecooked.js"></script>
     <script>
+    $("#jsElement").hide();
 	$("#pizzaAmount").on("change", function(){
 		var selectedValue = this.value;
 		for(var i = 2; i <= selectedValue; i++){
@@ -26,6 +27,29 @@
 			$("input[name='drinkAmount']").val(""+i);
 		}
 	});
+	
+	window.onload = function(){
+		
+		document.getElementById("javaScript").onclick = function(){
+			var element = document.getElementById("jsElement");
+			
+			if(element){
+				var style = element.style.display;
+				if(style == "none"){
+					element.style.display = "block";
+				} else {
+					element.style.display = "none";
+				}
+			}
+		}
+		
+		document.getElementById("calculateYearlyIncome").onclick = function(){
+			var income = document.getElementById("income").value;
+			income = parseInt(income);
+			income *= 12;
+			alert("Din årliga inkomst är: "+income+"kr.");
+		}
+	}
     </script>
   </body>
 </html>

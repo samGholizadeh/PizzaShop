@@ -154,5 +154,16 @@
 	      </div>
      	 </div>
      </div>
+     
+     <div class="row">
+     	<div id="jsElement" class="col-md-6">
+			<input id="income" type="text" placeholder="Månadsinkomst" /><br><br>
+     		<button id="calculateYearlyIncome" class="btn-small btn-primary"><b>Beräkna årsinkomst</b></button>
+     	</div>
+     	
+     	<div class="col-md-6">
+     		<button id="javaScript" class="btn btn-primary"><b>JavaScript function</b></button>
+     	</div>
+     </div>
       
 <%@ include file="/WEB-INF/footer.jsp" %>
